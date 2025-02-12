@@ -52,3 +52,53 @@ def train_test_split(X, y, test_size=0.33, random_state=None, shuffle=True):
     y_train = y_copy[:-test_size]
 
     return X_train, X_test, y_train, y_test
+
+def compute_euclidean_distance(x, y):
+    """Computes the Euclidean distance between x and y.
+    altered for categorical vals
+
+    Args:
+        x (list of int or float): first value
+        y (list of int or float): second value
+
+    Returns:
+        dists: The Euclidean distance between vectors x and y.     
+    """
+    distances = []
+    for index, value in enumerate(x):
+        if isinstance(value, (int, float)):
+            distances.append((value - y[index]) ** 2)
+        elif value == y[index]:
+            distances.append(0)
+        else:
+            distances.append(1)
+
+    return np.sqrt(sum(distances))
+
+def accuracy_score(y_true, y_pred, normalize=True):
+    """Compute the classification prediction accuracy score.
+
+    Args:
+        y_true(list of obj): The ground_truth target y values
+            The shape of y is n_samples
+        y_pred(list of obj): The predicted target y values (parallel to y_true)
+            The shape of y is n_samples
+        normalize(bool): If False, return the number of correctly classified samples.
+            Otherwise, return the fraction of correctly classified samples.
+
+    Returns:
+        score(float): If normalize == True, return the fraction of correctly classified samples (float),
+            else returns the number of correctly classified samples (int).
+
+    Notes:
+        Loosely based on sklearn's accuracy_score():
+            https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score
+    """
+    correct_count = sum(1 for true, pred in zip(y_true, y_pred) if true == pred)
+
+    if normalize:
+        score = correct_count / len(y_true) if y_true else 0.0
+    else:
+        score = correct_count
+
+    return score
