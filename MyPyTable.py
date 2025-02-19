@@ -229,7 +229,7 @@ class MyPyTable:
                     contains_missing_value = True
                 if value is None:
                     contains_missing_value = True
-                if value is '':
+                if value == '':
                     contains_missing_value = True
             if contains_missing_value is False:
                 new_data.append(row)
