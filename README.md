@@ -7,3 +7,4 @@
 # Luke To-Do
 - [ ] Create materials for in-class vs. out-class entropy
 - [ ] Accept github collab invitation
+- [ ] Get Eva access to Bollier 006
