@@ -64,16 +64,9 @@ def compute_euclidean_distance(x, y):
     Returns:
         dists: The Euclidean distance between vectors x and y.     
     """
-    distances = []
-    for index, value in enumerate(x):
-        if isinstance(value, (int, float)):
-            distances.append((value - y[index]) ** 2)
-        elif value == y[index]:
-            distances.append(0)
-        else:
-            distances.append(1)
-
-    return np.sqrt(sum(distances))
+    x = np.array(x, dtype=float)  # Convert to array
+    y = np.array(y, dtype=float)
+    return np.sqrt(np.sum((x - y) ** 2))
 
 def accuracy_score(y_true, y_pred, normalize=True):
     """Compute the classification prediction accuracy score.
