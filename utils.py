@@ -115,6 +115,9 @@ def calculate_shannon_entropy(values):
     return entropy
 
 def calculate_renyi_entropy(series, alpha=2):
+    """
+    Accepts a list of values and returns the entropy value.
+    """
     series = pd.Series(series)
     probabilities = series.value_counts(normalize=True)
     if alpha == 1:
