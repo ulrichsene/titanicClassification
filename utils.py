@@ -1,4 +1,7 @@
 import numpy as np
+import math
+import pandas as pd
+from collections import Counter
 
 def train_test_split(X, y, test_size=0.33, random_state=None, shuffle=True):
     """Split dataset into train and test sets based on a test set size.
@@ -95,3 +98,26 @@ def accuracy_score(y_true, y_pred, normalize=True):
         score = correct_count
 
     return score
+
+def calculate_shannon_entropy(values):
+    """
+    Accepts a list of values and returns the entropy value. 
+    H(X) = - Σ p(x) log(p(x))
+    """
+    total = len(values)
+    counts = Counter(values)
+    entropy = 0.0
+    
+    for count in counts.values():
+        p = count / total
+        entropy -= p * math.log2(p)
+    
+    return entropy
+
+def calculate_renyi_entropy(series, alpha=2):
+    series = pd.Series(series)
+    probabilities = series.value_counts(normalize=True)
+    if alpha == 1:
+        return -np.sum(probabilities * np.log2(probabilities))
+    else:
+        return 1 / (1 - alpha) * np.log2(np.sum(probabilities ** alpha))
